@@ -15,6 +15,9 @@ export class ComponenteComponent extends ComponenteTableColumns implements OnIni
     super();
   }
 
+  pagina = 0;
+  tamanho = 30;
+
   extraInformation: any;
 
   items: Array<any> = [];
@@ -42,9 +45,9 @@ export class ComponenteComponent extends ComponenteTableColumns implements OnIni
   }
 
   buscarComponentesPorCodigo(codigo: string): void {
-    this.service.buscarPorCodigo(codigo).toPromise().then(
+    this.service.paginar(codigo, this.pagina.toString(), this.tamanho.toString()).toPromise().then(
       response => {
-        this.items = response;
+        this.items = response?.content;
       },
       error => {
         this.items = [];

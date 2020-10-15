@@ -14,13 +14,14 @@ export class ComponenteResource {
     return this.http.post<Componente>(Constantes.apiUrl + 'componente', componente);
   }
 
-  buscarPorCodigo(codigo: string): Observable<Array<Componente>> {
-    const params = new HttpParams().set('codigo', codigo);
-    return this.http.get<Array<Componente>>(Constantes.apiUrl + 'componente/buscarPorCodigo', { params });
+  paginar(codigo: string, pagina: string, tamanho: string): Observable<any> {
+    const params = new HttpParams().set('codigo', codigo).set('page', pagina).set('size', tamanho)
+      .set('sort', 'codigo,asc');
+    return this.http.get<any>(Constantes.apiUrl + 'componente', { params });
   }
 
   buscarComponentePorId(id: string): Observable<Componente> {
     const params = new HttpParams().set('id', id);
-    return this.http.get<Componente>(Constantes.apiUrl + 'componente/buscarComponentePorId', { params });
+    return this.http.get<Componente>(Constantes.apiUrl + 'componente/buscarPorId', { params });
   }
 }

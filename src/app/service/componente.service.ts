@@ -13,8 +13,8 @@ export class ComponenteService {
     return this.resource.salvarComponente(componente);
   }
 
-  buscarPorCodigo(codigo: string): Observable<Array<Componente>> {
-    return this.resource.buscarPorCodigo(codigo);
+  paginar(codigo: string, pagina: string, tamanho: string): Observable<any> {
+    return this.resource.paginar(codigo, pagina, tamanho);
   }
 
   buscarComponentePorId(id: string): Observable<Componente> {
