@@ -1,0 +1,62 @@
+<po-page-default p-title="Cadastro - Componentes de preço" [p-actions]="actions" [p-breadcrumb]="breadcrumb">
+  <div class="po-mb-1">
+    <po-button (p-click)="voltarParaComponentes()" p-label="Voltar para Componentes" p-type="link">
+    </po-button>
+  </div>
+
+  <form [formGroup]="form">
+    <div class="po-row">
+      <po-input class="po-md-3" formControlName="codigo" p-label="Código"> </po-input>
+      <po-input class="po-md-3" formControlName="descricao" p-label="Descrição"> </po-input>
+
+      <po-select class="po-md-3" formControlName="unidadeMedida" p-label="Unidade Medida" [p-options]="unidadesMedida"
+        p-placeholder="" p-required="true" (p-change)="changeUnidadeMedida($event)">
+      </po-select>
+
+      <po-select class="po-md-3" formControlName="moeda" p-label="Moeda" [p-options]="moedas" p-placeholder=""
+        p-required="true" (p-change)="changeMoeda($event)">
+      </po-select>
+
+      <po-input class="po-md-3" formControlName="codigoExterno" p-label="Código Externo"> </po-input>
+
+      <po-select class="po-md-3" formControlName="tipo" p-label="Tipo" [p-options]="tipos" p-placeholder=""
+        p-required="true" (p-change)="changeTipo($event)">
+      </po-select>
+
+      <po-input class="po-md-3" formControlName="tabela" p-label="Tabela"> </po-input>
+
+      <po-select class="po-md-3" formControlName="aplicacao" p-label="Aplicação" [p-options]="aplicacoes"
+        p-placeholder="" p-required="true" (p-change)="changeAplicacao($event)">
+      </po-select>
+    </div>
+    <div class="po-row">
+      <po-switch class="po-md-3" name="ativo" formControlName="ativo" [p-label-off]="'Inativo'" [p-label-on]="'Ativo'">
+      </po-switch>
+      <po-switch class="po-md-3" name="hedge" formControlName="hedge" [p-label-off]="'Sem Hedge'"
+        [p-label-on]="'Com Hedge'">
+      </po-switch>
+
+      <!-- <po-button class="po-md-3 po-pt-1" p-label="Salvar" [p-disabled]="form.invalid" (p-click)="salvar()"> </po-button> -->
+    </div>
+  </form>
+
+  <div class="po-font-subtitle po-mt-3">Componentes de preço</div>
+  <hr />
+  <div>
+    <po-tabs>
+      <po-tab [p-active]="'true'" [p-disabled]="form.get('id').value" (p-click)="tabItemChange()" p-label="Item"
+        [p-active]="'true'">
+        <app-novo-item (contexto)="getContextoNovoItem($event)"></app-novo-item>
+      </po-tab>
+      <po-tab (p-click)="tabComponentesChange()" p-label="Componentes" [p-active]="'true'">
+        <app-novo-componente-aba></app-novo-componente-aba>
+      </po-tab>
+      <po-tab (p-click)="tabTipoFreteChange()" p-label="Tipo Frete" [p-active]="'true'">
+        <app-novo-tipo-frete></app-novo-tipo-frete>
+      </po-tab>
+      <po-tab (p-click)="tabFinalidadeChange()" p-label="Finalidade" [p-active]="'true'">
+        <app-nova-finalidade></app-nova-finalidade>
+      </po-tab>
+    </po-tabs>
+  </div>
+</po-page-default>

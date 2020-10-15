@@ -1,0 +1,20 @@
+<div class="po-font-subtitle">Itens</div>
+
+<div class="po-mb-1">
+  <po-button (p-click)="novoItem()" p-label="Novo Item" p-type="link">
+  </po-button>
+</div>
+
+<div class="po-pb-2">
+  <po-table p-container="shadow" [p-columns]="columns" [p-items]="items" [p-actions]="actionsTable">
+  </po-table>
+</div>
+
+<po-modal p-title="Novo Item" [p-primary-action]="confirm" [p-secondary-action]="close">
+  <form [formGroup]="form">
+    <div class="po-row">
+      <po-input class="po-md-6" formControlName="codigo" p-label="Código"> </po-input>
+      <po-input class="po-md-6" formControlName="descricao" p-label="Descrição"> </po-input>
+    </div>
+  </form>
+</po-modal>
