@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { PoBreadcrumb, PoModalComponent, PoPageAction } from '@po-ui/ng-components';
+import { PoBreadcrumb, PoModalComponent } from '@po-ui/ng-components';
 import { ComponenteService } from './../../service/componente.service';
 import { ComponenteTableColumns } from './componente-table-columns';
 
