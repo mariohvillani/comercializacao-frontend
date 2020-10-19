@@ -1,5 +1,8 @@
-<po-page-default p-title="Componentes" [p-actions]="actions" [p-breadcrumb]="breadcrumb">
+<po-page-dynamic-search p-title="Componentes" [p-filters]="[{ property: 'codigo' }]"
+  (p-quick-search)="filtrarPorCodigo($event)"
+  (p-change-disclaimers)="limparFiltro($event)"
+   [p-actions]="actions" [p-breadcrumb]="breadcrumb">
   <po-table p-container="shadow" [p-loading-show-more]="isLoading" [p-columns]="columns" [p-actions]="actionsTable"
-    [p-items]="items">
+    [p-show-more-disabled]="showMoreDisabled" (p-show-more)="showMore($event)" [p-items]="items">
   </po-table>
-</po-page-default>
+</po-page-dynamic-search>
