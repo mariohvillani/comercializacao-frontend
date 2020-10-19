@@ -1,13 +1,5 @@
-<po-page-default p-title="Componentes" [p-breadcrumb]="breadcrumb">
-  <div class="po-mb-1">
-    <po-button (p-click)="novoComponente()" p-label="Novo Componente" p-type="link">
-    </po-button>
-  </div>
-
+<po-page-default p-title="Componentes" [p-actions]="actions" [p-breadcrumb]="breadcrumb">
   <po-table p-container="shadow" [p-loading-show-more]="isLoading" [p-columns]="columns" [p-actions]="actionsTable"
     [p-items]="items">
-    <!-- <ng-template p-table-column-template [p-property]="'type'" let-value>
-    <div class="badge {{ value }}">{{ value | uppercase }}</div>
-  </ng-template> -->
   </po-table>
 </po-page-default>

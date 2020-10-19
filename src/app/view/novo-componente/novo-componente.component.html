@@ -1,9 +1,4 @@
 <po-page-default p-title="Cadastro - Componentes de preço" [p-actions]="actions" [p-breadcrumb]="breadcrumb">
-  <div class="po-mb-1">
-    <po-button (p-click)="voltarParaComponentes()" p-label="Voltar para Componentes" p-type="link">
-    </po-button>
-  </div>
-
   <form [formGroup]="form">
     <div class="po-row">
       <po-input class="po-md-3" formControlName="codigo" p-label="Código"> </po-input>
@@ -36,7 +31,6 @@
         [p-label-on]="'Com Hedge'">
       </po-switch>
 
-      <!-- <po-button class="po-md-3 po-pt-1" p-label="Salvar" [p-disabled]="form.invalid" (p-click)="salvar()"> </po-button> -->
     </div>
   </form>
 

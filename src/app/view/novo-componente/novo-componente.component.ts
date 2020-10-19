@@ -29,7 +29,8 @@ export class NovoComponenteComponent implements OnInit {
   aplicacoes: Array<PoSelectOption> = AplicacaoToSelectOption();
 
   public readonly actions: Array<PoPageAction> = [
-    { label: 'Salvar', action: this.salvar.bind(this), icon: 'po-icon po-icon-ok' }
+    { label: 'Salvar', action: this.salvar.bind(this), icon: 'po-icon po-icon-ok' },
+    { label: 'Cancelar', action: this.voltarParaComponentes.bind(this) }
   ];
 
   public readonly breadcrumb: PoBreadcrumb = {
@@ -100,7 +101,6 @@ export class NovoComponenteComponent implements OnInit {
         this.poNotification.success('Componente Salvo com Sucesso!');
       },
       error => {
-        this.poNotification.error(error);
       }
     );
   }
