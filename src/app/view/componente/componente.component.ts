@@ -11,7 +11,7 @@ import { ComponenteTableColumns } from './componente-table-columns';
 })
 export class ComponenteComponent extends ComponenteTableColumns implements OnInit, AfterViewInit {
 
-  codigoFiltro: string;
+  codigoFiltro = '';
 
   public readonly actions: Array<PoPageAction> = [
     { label: 'Novo', action: this.novoComponente.bind(this), icon: 'po-icon po-icon-plus' }
@@ -88,7 +88,7 @@ export class ComponenteComponent extends ComponenteTableColumns implements OnIni
 
   showMore(sort: PoTableColumnSort): void {
 
-    if (this.totalPages >= (this.pagina + 1)) {
+    if (!this.totalPages || (this.totalPages >= (this.pagina + 1))) {
       this.pagina++;
       this.isLoading = true;
       this.buscarComponentesPorCodigo(this.codigoFiltro);
