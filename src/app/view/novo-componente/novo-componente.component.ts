@@ -1,16 +1,15 @@
-import { NovoItemComponent } from './novo-item/novo-item.component';
-import { ComponenteService } from './../../service/componente.service';
-import { SimNao } from './../../enums/sim-nao.enum';
-import { UnidadeMedida, UnidadeMedidaToSelectOption } from './../../enums/unidade-medida.enum';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PoBreadcrumb, PoNotificationService, PoPageAction, PoSelectOption } from '@po-ui/ng-components';
-import { EnumValues } from 'enum-values';
+import { AplicacaoToSelectOption } from 'src/app/enums/aplicacao.enum';
 import { MoedaToSelectOption } from 'src/app/enums/moeda.enum';
 import { TipoToSelectOption } from 'src/app/enums/tipo.enum';
-import { AplicacaoToSelectOption } from 'src/app/enums/aplicacao.enum';
 import { Componente } from 'src/app/model/componente';
+import { SimNao } from './../../enums/sim-nao.enum';
+import { UnidadeMedidaToSelectOption } from './../../enums/unidade-medida.enum';
+import { ComponenteService } from './../../service/componente.service';
+import { NovoItemComponent } from './novo-item/novo-item.component';
 
 @Component({
   selector: 'app-novo-componente',
@@ -91,18 +90,28 @@ export class NovoComponenteComponent implements OnInit {
   }
 
   salvar(): void {
+    this.form.valid ? this.salvarComponente() : this.mensagemFormInvalido();
+  }
+
+  private mensagemFormInvalido(): void {
+    this.poNotification.warning('Existem campos inválidos ou campos obrigatórios que não foram preenchidos!');
+  }
+
+  private salvarComponente(): void {
+    this.service.salvarComponente(this.preencheObjeto()).toPromise().then(
+      response => {
+        this.form.get('id').setValue(response.id);
+        this.poNotification.success('Componente Salvo com Sucesso!');
+      }
+    );
+  }
+
+  private preencheObjeto(): Componente {
     let componente = new Componente();
     componente = this.form.value;
     componente.ativo = this.form.get('ativo').value ? SimNao.Sim : SimNao.Não;
     componente.hedge = this.form.get('hedge').value ? SimNao.Sim : SimNao.Não;
-    this.service.salvarComponente(componente).toPromise().then(
-      response => {
-        this.form.get('id').setValue(response.id);
-        this.poNotification.success('Componente Salvo com Sucesso!');
-      },
-      error => {
-      }
-    );
+    return componente;
   }
 
   tabItemChange(): void {

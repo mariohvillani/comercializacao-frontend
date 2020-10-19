@@ -5,23 +5,23 @@
       <po-input class="po-md-3" formControlName="descricao" p-label="Descrição"> </po-input>
 
       <po-select class="po-md-3" formControlName="unidadeMedida" p-label="Unidade Medida" [p-options]="unidadesMedida"
-        p-placeholder="" p-required="true" (p-change)="changeUnidadeMedida($event)">
+        p-placeholder="Selecione a Unidade Medida" p-required="true" (p-change)="changeUnidadeMedida($event)">
       </po-select>
 
-      <po-select class="po-md-3" formControlName="moeda" p-label="Moeda" [p-options]="moedas" p-placeholder=""
+      <po-select class="po-md-3" formControlName="moeda" p-label="Moeda" [p-options]="moedas" p-placeholder="Selecione a Moeda"
         p-required="true" (p-change)="changeMoeda($event)">
       </po-select>
 
       <po-input class="po-md-3" formControlName="codigoExterno" p-label="Código Externo"> </po-input>
 
-      <po-select class="po-md-3" formControlName="tipo" p-label="Tipo" [p-options]="tipos" p-placeholder=""
+      <po-select class="po-md-3" formControlName="tipo" p-label="Tipo" [p-options]="tipos" p-placeholder="Selecione o Tipo"
         p-required="true" (p-change)="changeTipo($event)">
       </po-select>
 
       <po-input class="po-md-3" formControlName="tabela" p-label="Tabela"> </po-input>
 
       <po-select class="po-md-3" formControlName="aplicacao" p-label="Aplicação" [p-options]="aplicacoes"
-        p-placeholder="" p-required="true" (p-change)="changeAplicacao($event)">
+        p-placeholder="Selecione a Aplicação" p-required="true" (p-change)="changeAplicacao($event)">
       </po-select>
     </div>
     <div class="po-row">
