@@ -1,32 +1,27 @@
 <po-page-default p-title="Cadastro - Componentes de preço" [p-actions]="actions" [p-breadcrumb]="breadcrumb">
-  <div class="po-mb-1">
-    <po-button (p-click)="voltarParaComponentes()" p-label="Voltar para Componentes" p-type="link">
-    </po-button>
-  </div>
-
   <form [formGroup]="form">
     <div class="po-row">
       <po-input class="po-md-3" formControlName="codigo" p-label="Código"> </po-input>
       <po-input class="po-md-3" formControlName="descricao" p-label="Descrição"> </po-input>
 
       <po-select class="po-md-3" formControlName="unidadeMedida" p-label="Unidade Medida" [p-options]="unidadesMedida"
-        p-placeholder="" p-required="true" (p-change)="changeUnidadeMedida($event)">
+        p-placeholder="Selecione a Unidade Medida" p-required="true" (p-change)="changeUnidadeMedida($event)">
       </po-select>
 
-      <po-select class="po-md-3" formControlName="moeda" p-label="Moeda" [p-options]="moedas" p-placeholder=""
+      <po-select class="po-md-3" formControlName="moeda" p-label="Moeda" [p-options]="moedas" p-placeholder="Selecione a Moeda"
         p-required="true" (p-change)="changeMoeda($event)">
       </po-select>
 
       <po-input class="po-md-3" formControlName="codigoExterno" p-label="Código Externo"> </po-input>
 
-      <po-select class="po-md-3" formControlName="tipo" p-label="Tipo" [p-options]="tipos" p-placeholder=""
+      <po-select class="po-md-3" formControlName="tipo" p-label="Tipo" [p-options]="tipos" p-placeholder="Selecione o Tipo"
         p-required="true" (p-change)="changeTipo($event)">
       </po-select>
 
       <po-input class="po-md-3" formControlName="tabela" p-label="Tabela"> </po-input>
 
       <po-select class="po-md-3" formControlName="aplicacao" p-label="Aplicação" [p-options]="aplicacoes"
-        p-placeholder="" p-required="true" (p-change)="changeAplicacao($event)">
+        p-placeholder="Selecione a Aplicação" p-required="true" (p-change)="changeAplicacao($event)">
       </po-select>
     </div>
     <div class="po-row">
@@ -36,7 +31,6 @@
         [p-label-on]="'Com Hedge'">
       </po-switch>
 
-      <!-- <po-button class="po-md-3 po-pt-1" p-label="Salvar" [p-disabled]="form.invalid" (p-click)="salvar()"> </po-button> -->
     </div>
   </form>
 

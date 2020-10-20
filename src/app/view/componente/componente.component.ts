@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { PoBreadcrumb, PoModalComponent } from '@po-ui/ng-components';
+import { PoBreadcrumb, PoModalComponent, PoPageAction, PoTableColumnSort } from '@po-ui/ng-components';
 import { ComponenteService } from './../../service/componente.service';
 import { ComponenteTableColumns } from './componente-table-columns';
 
@@ -11,12 +11,21 @@ import { ComponenteTableColumns } from './componente-table-columns';
 })
 export class ComponenteComponent extends ComponenteTableColumns implements OnInit, AfterViewInit {
 
+  codigoFiltro = '';
+
+  public readonly actions: Array<PoPageAction> = [
+    { label: 'Novo', action: this.novoComponente.bind(this), icon: 'po-icon po-icon-plus' }
+  ];
+
   constructor(private router: Router, private service: ComponenteService) {
     super();
   }
 
+  showMoreDisabled = false;
+
   pagina = 0;
-  tamanho = 30;
+  tamanho = 2;
+  totalPages = null;
 
   extraInformation: any;
 
@@ -27,7 +36,6 @@ export class ComponenteComponent extends ComponenteTableColumns implements OnIni
     icon: 'po-icon po-icon-edit'
   }];
 
-  showMoreDisabled = false;
   title: any;
   isLoading = false;
 
@@ -38,19 +46,34 @@ export class ComponenteComponent extends ComponenteTableColumns implements OnIni
   };
 
   ngOnInit(): void {
+    this.pagina = 0;
   }
 
   ngAfterViewInit(): void {
     this.buscarComponentesPorCodigo('');
   }
 
+  filtrarPorCodigo(codigo: string): void {
+    this.pagina = 0;
+    this.codigoFiltro = codigo;
+    this.items = [];
+    this.buscarComponentesPorCodigo(codigo);
+  }
+
+  limparFiltro(event): void {
+    this.filtrarPorCodigo('');
+  }
+
   buscarComponentesPorCodigo(codigo: string): void {
     this.service.paginar(codigo, this.pagina.toString(), this.tamanho.toString()).toPromise().then(
       response => {
-        this.items = response?.content;
+        this.isLoading = false;
+        this.items = this.items.concat(response?.content);
+        this.totalPages = response?.totalPages - 1;
       },
       error => {
         this.items = [];
+        this.pagina = 0;
       }
     );
   }
@@ -61,5 +84,15 @@ export class ComponenteComponent extends ComponenteTableColumns implements OnIni
 
   editar(event): void {
     this.router.navigateByUrl('/novo-componente/' + event?.id);
+  }
+
+  showMore(sort: PoTableColumnSort): void {
+
+    if (!this.totalPages || (this.totalPages >= (this.pagina + 1))) {
+      this.pagina++;
+      this.isLoading = true;
+      this.buscarComponentesPorCodigo(this.codigoFiltro);
+    }
+
   }
 }
