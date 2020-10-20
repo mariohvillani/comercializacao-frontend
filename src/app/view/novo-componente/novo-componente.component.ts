@@ -2,21 +2,15 @@ import { NovaFinalidadeComponent } from './nova-finalidade/nova-finalidade.compo
 import { NovoItemComponent } from './novo-item/novo-item.component';
 import { ComponenteService } from './../../service/componente.service';
 import { SimNao } from './../../enums/sim-nao.enum';
-import { UnidadeMedida, UnidadeMedidaToSelectOption } from './../../enums/unidade-medida.enum';
-import { Component, Input, OnInit } from '@angular/core';
+import { UnidadeMedidaToSelectOption } from './../../enums/unidade-medida.enum';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PoBreadcrumb, PoNotificationService, PoPageAction, PoSelectOption } from '@po-ui/ng-components';
-import { EnumValues } from 'enum-values';
 import { AplicacaoToSelectOption } from 'src/app/enums/aplicacao.enum';
 import { MoedaToSelectOption } from 'src/app/enums/moeda.enum';
 import { TipoToSelectOption } from 'src/app/enums/tipo.enum';
 import { Componente } from 'src/app/model/componente';
-import { SimNao } from './../../enums/sim-nao.enum';
-import { UnidadeMedidaToSelectOption } from './../../enums/unidade-medida.enum';
-import { ComponenteService } from './../../service/componente.service';
-import { NovoItemComponent } from './novo-item/novo-item.component';
 
 @Component({
   selector: 'app-novo-componente',
