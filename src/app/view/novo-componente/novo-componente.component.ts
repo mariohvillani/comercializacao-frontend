@@ -40,9 +40,9 @@ export class NovoComponenteComponent implements OnInit {
   };
 
   constructor(private router: Router, private formBuilder: FormBuilder,
-    private service: ComponenteService,
-    public poNotification: PoNotificationService,
-    private route: ActivatedRoute) { }
+              private service: ComponenteService,
+              public poNotification: PoNotificationService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.iniciarForm();
