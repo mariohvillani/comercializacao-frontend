@@ -18,3 +18,16 @@
     </div>
   </form>
 </po-modal>
+
+<po-modal #modalEditar p-title="Editar Item" [p-primary-action]="confirmaEditar" [p-secondary-action]="cancelaEditar">
+  <form [formGroup]="form">
+    <div class="po-row">
+      <po-input class="po-md-6" formControlName="codigo" p-label="Código"></po-input>
+      <po-input class="po-md-6" formControlName="descricao" p-label="Descrição"> </po-input>
+    </div>
+  </form>
+</po-modal>
+
+<po-modal #modalExcluir p-title="Excluir" [p-primary-action]="confirmaExcluir" [p-secondary-action]="cancelaExcluir">
+  <span class="po-font-subtitle">Confirmar Exclusão do Item: {{componente?.codigo}}</span>
+</po-modal>

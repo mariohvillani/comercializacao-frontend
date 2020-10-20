@@ -1,3 +1,4 @@
+import { Componente } from 'src/app/model/componente';
 import { ComponenteItem } from './../../../model/componente-item';
 import { ComponenteItemService } from './../../../service/componente-item.service';
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
@@ -14,6 +15,7 @@ export class NovoItemComponent implements OnInit {
   @Output() contexto: EventEmitter<NovoItemComponent> = new EventEmitter<NovoItemComponent>();
 
   form: FormGroup;
+  componente: ComponenteItem;
 
   public readonly columns: Array<PoTableColumn> = [
     {
@@ -31,12 +33,12 @@ export class NovoItemComponent implements OnInit {
   items: Array<any> = [];
   actionsTable = [
     {
-      action: this.editar.bind(this),
+      action: this.perguntaEditar.bind(this),
       label: 'Editar',
       icon: 'po-icon po-icon-edit'
     },
     {
-      action: this.excluir.bind(this),
+      action: this.perguntaExcluir.bind(this),
       label: 'Excluir',
       icon: 'po-icon po-icon-delete'
     }
@@ -54,10 +56,40 @@ export class NovoItemComponent implements OnInit {
     action: () => {
       this.salvarItem();
     },
-    label: 'Confirma'
+    label: 'Confirmar'
+  };
+  confirmaExcluir: PoModalAction = {
+    action: () => {
+      this.excluirItem();
+    },
+    label: 'Excluir'
+  };
+
+  cancelaExcluir: PoModalAction = {
+    action: () => {
+      this.closeModalExcluir();
+    },
+    label: 'Cancela',
+    danger: true
+  };
+
+  confirmaEditar: PoModalAction = {
+    action: () => {
+      this.editarItem();
+    },
+    label: 'Editar'
+  };
+  cancelaEditar: PoModalAction = {
+    action: () => {
+      this.closeModalEditar();
+    },
+    label: 'Cancela',
+    danger: true
   };
 
   @ViewChild(PoModalComponent, { static: true }) poModal: PoModalComponent;
+  @ViewChild('modalExcluir', { static: true }) modalExcluir: PoModalComponent;
+  @ViewChild('modalEditar', { static: true }) modalEditar: PoModalComponent;
 
   constructor(private service: ComponenteItemService, private formBuilder: FormBuilder, private poNotification: PoNotificationService) { }
 
@@ -109,10 +141,41 @@ export class NovoItemComponent implements OnInit {
     );
   }
 
-  editar(event): void {
+  editarItem(): void {
+    this.componente = this.form.value;
+    this.service.salvarComponenteItem(this.componente).toPromise().then(res => {
+      this.poNotification.success('Item Editado com Sucesso!');
+      this.modalEditar.close();
+      this.buscarComponenteItem('');
+      this.limparForm();
+    });
   }
 
-  excluir(event): void {
+  limparForm(): void{
+    this.form.get('id').setValue(null);
+    this.form.get('codigo').setValue(null);
+    this.form.get('descricao').setValue(null);
+  }
+
+  excluirItem(): void{
+    this.service.excluirComponenteItem(this.componente.id.toString()).subscribe(res => {
+      this.closeModalExcluir();
+      this.poNotification.success('Item Excluído com Sucesso!');
+      this.buscarComponenteItem('');
+    });
+  }
+
+  perguntaExcluir(com: ComponenteItem): void {
+    this.componente = com;
+    this.modalExcluir.open();
+  }
+
+  perguntaEditar(com: ComponenteItem): void{
+    this.componente = com;
+    this.modalEditar.open();
+    this.form.get('codigo').setValue(this.componente.codigo);
+    this.form.get('id').setValue(this.componente.id);
+    this.form.get('descricao').setValue(this.componente.descricao);
   }
 
   closeModal(): void {
@@ -120,6 +183,14 @@ export class NovoItemComponent implements OnInit {
     this.form.get('codigo').setValue(null);
     this.form.get('descricao').setValue(null);
     this.poModal.close();
+  }
+
+  closeModalExcluir(): void {
+    this.modalExcluir.close();
+  }
+  closeModalEditar(): void {
+    this.modalEditar.close();
+    this.limparForm();
   }
 
 }
