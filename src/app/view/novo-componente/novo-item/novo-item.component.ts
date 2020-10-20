@@ -59,8 +59,7 @@ export class NovoItemComponent implements OnInit {
 
   @ViewChild(PoModalComponent, { static: true }) poModal: PoModalComponent;
 
-  constructor(private service: ComponenteItemService, private formBuilder: FormBuilder,
-    private poNotification: PoNotificationService) { }
+  constructor(private service: ComponenteItemService, private formBuilder: FormBuilder, private poNotification: PoNotificationService) { }
 
   ngOnInit(): void {
     this.iniciarForm();

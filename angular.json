@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "crud-componente-frontend"
+  "defaultProject": "crud-componente-frontend",
+  "cli": {
+    "analytics": false
+  }
 }

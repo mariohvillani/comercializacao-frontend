@@ -44,7 +44,7 @@
   <hr />
   <div>
     <po-tabs>
-      <po-tab [p-active]="'true'" [p-disabled]="form.get('id').value" (p-click)="tabItemChange()" p-label="Item"
+      <po-tab [p-active]="'true'" [p-disabled]="!form.get('id').value" (p-click)="tabItemChange()" p-label="Item"
         [p-active]="'true'">
         <app-novo-item (contexto)="getContextoNovoItem($event)"></app-novo-item>
       </po-tab>
@@ -55,7 +55,7 @@
         <app-novo-tipo-frete></app-novo-tipo-frete>
       </po-tab>
       <po-tab (p-click)="tabFinalidadeChange()" p-label="Finalidade" [p-active]="'true'">
-        <app-nova-finalidade></app-nova-finalidade>
+        <app-nova-finalidade (contexto)="getContextoNovaFinalidade($event)"></app-nova-finalidade>
       </po-tab>
     </po-tabs>
   </div>

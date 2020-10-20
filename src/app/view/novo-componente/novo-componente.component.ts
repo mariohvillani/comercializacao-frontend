@@ -1,3 +1,4 @@
+import { NovaFinalidadeComponent } from './nova-finalidade/nova-finalidade.component';
 import { NovoItemComponent } from './novo-item/novo-item.component';
 import { ComponenteService } from './../../service/componente.service';
 import { SimNao } from './../../enums/sim-nao.enum';
@@ -20,6 +21,7 @@ import { Componente } from 'src/app/model/componente';
 export class NovoComponenteComponent implements OnInit {
 
   contextoNovoItem: NovoItemComponent;
+  contextoNovaFinalidade: NovaFinalidadeComponent;
 
   form: FormGroup;
 
@@ -119,11 +121,16 @@ export class NovoComponenteComponent implements OnInit {
   }
 
   tabFinalidadeChange(): void {
-
+    this.contextoNovaFinalidade.setIdComponente(this.form.get('id').value);
+    this.contextoNovaFinalidade.buscarComponenteFinalidade('');
   }
 
   getContextoNovoItem(event): void {
     this.contextoNovoItem = event;
+  }
+
+  getContextoNovaFinalidade(event): void {
+    this.contextoNovaFinalidade = event;
   }
 
   buscarComponentePorId(id): void {
