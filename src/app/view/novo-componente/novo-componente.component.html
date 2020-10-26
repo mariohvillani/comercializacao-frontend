@@ -8,14 +8,14 @@
         p-placeholder="Selecione a Unidade Medida" p-required="true" (p-change)="changeUnidadeMedida($event)">
       </po-select>
 
-      <po-select class="po-md-3" formControlName="moeda" p-label="Moeda" [p-options]="moedas" p-placeholder="Selecione a Moeda"
-        p-required="true" (p-change)="changeMoeda($event)">
+      <po-select class="po-md-3" formControlName="moeda" p-label="Moeda" [p-options]="moedas"
+        p-placeholder="Selecione a Moeda" p-required="true" (p-change)="changeMoeda($event)">
       </po-select>
 
       <po-input class="po-md-3" formControlName="codigoExterno" p-label="Código Externo"> </po-input>
 
-      <po-select class="po-md-3" formControlName="tipo" p-label="Tipo" [p-options]="tipos" p-placeholder="Selecione o Tipo"
-        p-required="true" (p-change)="changeTipo($event)">
+      <po-select class="po-md-3" formControlName="tipo" p-label="Tipo" [p-options]="tipos"
+        p-placeholder="Selecione o Tipo" p-required="true" (p-change)="changeTipo($event)">
       </po-select>
 
       <po-input class="po-md-3" formControlName="tabela" p-label="Tabela"> </po-input>
@@ -38,17 +38,16 @@
   <hr />
   <div>
     <po-tabs>
-      <po-tab [p-active]="'true'" [p-disabled]="!form.get('id').value" (p-click)="tabItemChange()" p-label="Item"
-        [p-active]="'true'">
+      <po-tab [p-disabled]="!form.get('id').value" (p-click)="tabItemChange()" p-label="Item" [p-active]=true>
         <app-novo-item (contexto)="getContextoNovoItem($event)"></app-novo-item>
       </po-tab>
-      <po-tab (p-click)="tabComponentesChange()" p-label="Componentes" [p-active]="'true'">
+      <po-tab (p-click)="tabComponentesChange()" p-label="Componentes">
         <app-novo-componente-aba></app-novo-componente-aba>
       </po-tab>
-      <po-tab (p-click)="tabTipoFreteChange()" p-label="Tipo Frete" [p-active]="'true'">
+      <po-tab (p-click)="tabTipoFreteChange()" p-label="Tipo Frete">
         <app-novo-tipo-frete></app-novo-tipo-frete>
       </po-tab>
-      <po-tab (p-click)="tabFinalidadeChange()" p-label="Finalidade" [p-active]="'true'">
+      <po-tab (p-click)="tabFinalidadeChange()" p-label="Finalidade">
         <app-nova-finalidade (contexto)="getContextoNovaFinalidade($event)"></app-nova-finalidade>
       </po-tab>
     </po-tabs>

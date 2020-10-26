@@ -3,10 +3,10 @@ import { NovoItemComponent } from './novo-item/novo-item.component';
 import { ComponenteService } from './../../service/componente.service';
 import { SimNao } from './../../enums/sim-nao.enum';
 import { UnidadeMedidaToSelectOption } from './../../enums/unidade-medida.enum';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PoBreadcrumb, PoNotificationService, PoPageAction, PoSelectOption } from '@po-ui/ng-components';
+import { PoBreadcrumb, PoNotificationService, PoPageAction, PoSelectOption, PoTabComponent, PoTabsComponent } from '@po-ui/ng-components';
 import { AplicacaoToSelectOption } from 'src/app/enums/aplicacao.enum';
 import { MoedaToSelectOption } from 'src/app/enums/moeda.enum';
 import { TipoToSelectOption } from 'src/app/enums/tipo.enum';
@@ -17,8 +17,9 @@ import { Componente } from 'src/app/model/componente';
   templateUrl: './novo-componente.component.html',
   styleUrls: ['./novo-componente.component.css']
 })
-export class NovoComponenteComponent implements OnInit {
+export class NovoComponenteComponent implements OnInit, AfterViewInit {
 
+  @ViewChild('tabItem', { static: false }) tabItem: PoTabComponent;
   contextoNovoItem: NovoItemComponent;
   contextoNovaFinalidade: NovaFinalidadeComponent;
 
@@ -53,6 +54,10 @@ export class NovoComponenteComponent implements OnInit {
         this.buscarComponentePorId(params.get('id'));
       }
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.tabItemChange();
   }
 
   iniciarForm(): void {

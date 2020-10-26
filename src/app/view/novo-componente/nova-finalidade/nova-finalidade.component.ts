@@ -14,6 +14,7 @@ export class NovaFinalidadeComponent implements OnInit {
   @Output() contexto: EventEmitter<NovaFinalidadeComponent> = new EventEmitter<NovaFinalidadeComponent>();
 
   form: FormGroup;
+  componenteFinalidade: ComponenteFinalidade;
 
   public readonly columns: Array<PoTableColumn> = [
     {
@@ -31,12 +32,12 @@ export class NovaFinalidadeComponent implements OnInit {
   items: Array<any> = [];
   actionsTable = [
     {
-      action: this.editar.bind(this),
+      action: this.perguntaEditar.bind(this),
       label: 'Editar',
       icon: 'po-icon po-icon-edit'
     },
     {
-      action: this.excluir.bind(this),
+      action: this.perguntaExcluir.bind(this),
       label: 'Excluir',
       icon: 'po-icon po-icon-delete'
     }
@@ -54,10 +55,40 @@ export class NovaFinalidadeComponent implements OnInit {
     action: () => {
       this.salvarFinalidade();
     },
-    label: 'Confirma'
+    label: 'Confirmar'
+  };
+  confirmaExcluir: PoModalAction = {
+    action: () => {
+      this.excluirFinalidade();
+    },
+    label: 'Excluir'
+  };
+
+  cancelaExcluir: PoModalAction = {
+    action: () => {
+      this.closeModalExcluir();
+    },
+    label: 'Cancela',
+    danger: true
+  };
+
+  confirmaEditar: PoModalAction = {
+    action: () => {
+      this.editarFinalidade();
+    },
+    label: 'Editar'
+  };
+  cancelaEditar: PoModalAction = {
+    action: () => {
+      this.closeModalEditar();
+    },
+    label: 'Cancela',
+    danger: true
   };
 
   @ViewChild(PoModalComponent, { static: true }) poModal: PoModalComponent;
+  @ViewChild('modalExcluir', { static: true }) modalExcluir: PoModalComponent;
+  @ViewChild('modalEditar', { static: true }) modalEditar: PoModalComponent;
 
   constructor(private service: ComponenteFinalidadeService,
               private formBuilder: FormBuilder,
@@ -112,7 +143,52 @@ export class NovaFinalidadeComponent implements OnInit {
     );
   }
 
-  editar(event): void {
+  editarFinalidade(): void {
+    this.componenteFinalidade = this.form.value;
+    this.service.salvarComponenteFinalidade(this.componenteFinalidade).toPromise().then(res => {
+      this.poNotification.success('Item Editado com Sucesso!');
+      this.modalEditar.close();
+      this.buscarComponenteFinalidade('');
+      this.limparForm();
+    });
+  }
+
+  perguntaExcluir(com: ComponenteFinalidade): void {
+    this.componenteFinalidade = com;
+    this.modalExcluir.open();
+  }
+
+  excluirFinalidade(): void{
+    this.service.excluirComponenteFinalidade(this.componenteFinalidade.id.toString()).subscribe(res => {
+      this.closeModalExcluir();
+      this.poNotification.success('Item Excluído com Sucesso!');
+      this.buscarComponenteFinalidade('');
+    });
+  }
+
+  perguntaEditar(com: ComponenteFinalidade): void{
+    this.componenteFinalidade = com;
+    this.modalEditar.open();
+    this.form.get('codigo').setValue(this.componenteFinalidade.codigo);
+    this.form.get('id').setValue(this.componenteFinalidade.id);
+    this.form.get('descricao').setValue(this.componenteFinalidade.descricao);
+  }
+
+
+  editarItem(): void {
+    this.componenteFinalidade = this.form.value;
+    this.service.salvarComponenteFinalidade(this.componenteFinalidade).toPromise().then(res => {
+      this.poNotification.success('Item Editado com Sucesso!');
+      this.modalEditar.close();
+      this.buscarComponenteFinalidade('');
+      this.limparForm();
+    });
+  }
+
+  limparForm(): void{
+    this.form.get('id').setValue(null);
+    this.form.get('codigo').setValue(null);
+    this.form.get('descricao').setValue(null);
   }
 
   excluir(event): void {
@@ -123,6 +199,14 @@ export class NovaFinalidadeComponent implements OnInit {
     this.form.get('codigo').setValue(null);
     this.form.get('descricao').setValue(null);
     this.poModal.close();
+  }
+
+  closeModalExcluir(): void {
+    this.modalExcluir.close();
+  }
+  closeModalEditar(): void {
+    this.modalEditar.close();
+    this.limparForm();
   }
 
 }
